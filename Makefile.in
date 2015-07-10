@@ -36,7 +36,7 @@ OBJS     =  bvi.o comm.o set.o re.o io.o edit.o recomp.o
 INCLUDES =  bvi.h set.h
 BMOBJ    =  bmore.o bm_unix.o recomp.o
 CC       =  @CC@
-CFLAGS   =  @CFLAGS@ @CPPFLAGS@
+CFLAGS   =  -std=C99 @CFLAGS@ @CPPFLAGS@
 DEFS     =  @DEFS@
 LDFLAGS  =  @LDFLAGS@
 LIBS     =  @LIBS@
