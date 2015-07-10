@@ -39,6 +39,7 @@
 #include <sys/stat.h>
 #include <setjmp.h>
 
+// FIXME: what the hell?
 #define JOEHTG
 
 #if defined(__MSDOS__) && !defined(DJGPP)
@@ -57,9 +58,9 @@
 #endif
 
 /* defines for filemode */
-enum filemode_t {
+enum file_mode {
     ERROR       = -1,
-    REGULAR     = 0,
+    REGULAR     =  0,
     NEW,
     DIRECTORY,
     CHAR_SPECIAL,
@@ -67,12 +68,26 @@ enum filemode_t {
     PARTIAL
 };
 
+// TODO: move this over to PCRE
 /* regular expressions */
 #define END     0
 #define ONE     1
 #define STAR    2
 
 /* undo modes */
+#define shl(n) (1 << n)
+enum undo_mode {
+    EDIT    = shl(0), /* undo o r R */
+    TRUNC   = shl(1),
+    INSERT  = shl(2),
+    DELETE  = shl(3),
+    BACK    = shl(4),
+    APPEND  = shl(5),
+    TILDE   = shl(6),
+};
+#undef SHL
+
+
 #define U_EDIT 1 /* undo o r R */
 #define U_TRUNC 2 /* undo D */
 #define U_INSERT 4 /* undo i */
@@ -180,7 +195,7 @@ extern PTR last_motion;
 extern off_t undo_count;
 extern off_t yanked;
 extern off_t undosize;
-extern static char *copyright;
+extern char *copyright;
 extern char *notfound;
 extern char *terminal;
 extern char *undo_buf;

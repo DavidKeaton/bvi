@@ -41,7 +41,7 @@
 #endif
 
 
-static char copyright[] = "Copyright (C) 1996-2014 by Gerhard Buergmann";
+char *copyright = "Copyright (C) 1996-2014 by Gerhard Buergmann";
 
 jmp_buf env;                /* context for `longjmp' function */
 
