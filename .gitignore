@@ -30,3 +30,18 @@
 
 # Debug files
 *.dSYM/
+
+# Vim
+*.session
+*.vim
+*.swp
+*.swo
+
+# astyle
+*.orig
+
+# autoconf/automake
+Makefile
+config.h
+config.log
+config.status
