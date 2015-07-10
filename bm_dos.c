@@ -54,12 +54,12 @@ initterm()
 }
 
 void
-set_tty ()
+set_tty()
 {
 }
 
 void
-reset_tty ()
+reset_tty()
 {
 }
 
@@ -68,7 +68,6 @@ void
 sig()
 {
 	signal(SIGINT, sig);
-
 	got_int = TRUE;
 }
 
@@ -126,7 +125,7 @@ cleartoeol()
 int
 vgetc()
 {
-	 return ((char)bioskey(0));
+	return ((char)bioskey(0));
 }
 
 

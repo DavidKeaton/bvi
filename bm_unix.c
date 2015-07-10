@@ -58,14 +58,18 @@ int     dum_opt, dlines;
 
 int
 putchr(char ch)
-{return putchar((int)ch);}
+{
+	return putchar((int)ch);
+}
 
 #else
 
 int
 putchr(ch)
-	int ch;
-{return putchar(ch);}
+int ch;
+{
+	return putchar(ch);
+}
 
 #endif
 
@@ -77,28 +81,25 @@ initterm()
 	static char clearbuf[TBUFSIZ];
 	char        *term;
 	char        *clearptr;
-
 	struct  termios nstate;
-
 	no_tty = tcgetattr(fileno(stdout), &ostate);
-	if (!no_tty) {
+	if(!no_tty) {
 		nstate = ostate;
 		/*
 		 * is this really necessary??
 		 *
 		nstate.c_lflag &= ~(ICANON|ECHO|ECHOE|ECHONL);
 		 */
-		nstate.c_lflag &= ~(ICANON|ECHO|ECHOE|ECHONL);
+		nstate.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHONL);
 		nstate.c_cc[VMIN] = 1;
 		nstate.c_cc[VTIME] = 0;
 		tcsetattr(fileno(stdin), TCSADRAIN, &nstate);
 	}
-
 #ifdef DJGPP
 	maxx = 80;
 	maxy = 25;
 #else
-	if ((term = getenv("TERM")) == 0 || tgetent(buf, term) <= 0) {
+	if((term = getenv("TERM")) == 0 || tgetent(buf, term) <= 0) {
 		printf("Dumb terminal\n");
 		maxx = 80;
 		maxy = 24;
@@ -112,13 +113,11 @@ initterm()
 	rev_start = tgetstr("so", &clearptr);
 	rev_end = tgetstr("se", &clearptr);
 #endif
-
 	no_intty = tcgetattr(fileno(stdin), &ostate);
 	tcgetattr(fileno(stderr), &ostate);
-	  
 	nstate = ostate;
-	if (!no_tty) {
-		ostate.c_lflag &= ~(ICANON|ECHO);
+	if(!no_tty) {
+		ostate.c_lflag &= ~(ICANON | ECHO);
 	}
 }
 
@@ -126,8 +125,10 @@ initterm()
 void
 set_tty()
 {
-	if (no_tty) return;
-	ostate.c_lflag &= ~(ICANON|ECHO);
+	if(no_tty) {
+		return;
+	}
+	ostate.c_lflag &= ~(ICANON | ECHO);
 	stty(fileno(stderr), &ostate);
 }
 
@@ -135,15 +136,17 @@ set_tty()
 void
 reset_tty()
 {
-	if (no_tty) return;
-	ostate.c_lflag |= ICANON|ECHO;
+	if(no_tty) {
+		return;
+	}
+	ostate.c_lflag |= ICANON | ECHO;
 	stty(fileno(stderr), &ostate);
 }
 
 
 void
 sig(sig)
-	int sig;
+int sig;
 {
 	reset_tty();
 	printf("\r\n");
@@ -156,7 +159,7 @@ sig(sig)
  */
 void
 doshell(cmd)
-	char	*cmd;
+char	*cmd;
 {
 	int	ret;
 #ifndef DJGPP
@@ -164,14 +167,14 @@ doshell(cmd)
 	char	*shell;
 	char	cline[128];
 #endif
-
 	printf("\n");
-
 #ifndef DJGPP
-	if ((shell = getenv("SHELL")) == NULL) shell = "sh";
-	else if(strrchr(shell,'/')) shell=(char *)(strrchr(shell,'/')+1);
-
-	if (cmd[0] == '\0') {
+	if((shell = getenv("SHELL")) == NULL) {
+		shell = "sh";
+	} else if(strrchr(shell, '/')) {
+		shell = (char *)(strrchr(shell, '/') + 1);
+	}
+	if(cmd[0] == '\0') {
 		sprintf(cline, "%s -i", shell);
 		cmd = cline;
 	} else {
@@ -179,7 +182,6 @@ doshell(cmd)
 		cmd = cline;
 	}
 #endif
-
 	reset_tty();
 	ret = system(cmd);
 	set_tty();
@@ -194,8 +196,9 @@ void
 highlight()
 {
 #ifndef DJGPP
-	if (rev_start && rev_end)
+	if(rev_start && rev_end) {
 		tputs(rev_start, 1, putchr);
+	}
 #endif
 }
 
@@ -204,8 +207,9 @@ void
 normal()
 {
 #ifndef DJGPP
-	if (rev_start && rev_end)
+	if(rev_start && rev_end) {
 		tputs(rev_end, 1, putchr);
+	}
 #endif
 }
 
@@ -233,7 +237,9 @@ void
 home()
 {
 #ifdef DJGPP
-	if (!no_tty) printf("\r");
+	if(!no_tty) {
+		printf("\r");
+	}
 #else
 	tputs(Home, 1, putchr);
 #endif
@@ -246,9 +252,10 @@ cleartoeol()
 {
 #ifdef DJGPP
 	int	n;
-
 	home();
-	if (!no_tty) for (n = 1; n < maxx; n++) printf(" ");
+	if(!no_tty) for(n = 1; n < maxx; n++) {
+			printf(" ");
+		}
 	home();
 #else
 	tputs(erase_ln, 1, putchr);
@@ -259,15 +266,15 @@ cleartoeol()
 int
 vgetc()
 {
-    char cha;
-    extern int errno;
-
-    errno = 0;
-    if (read(2, &cha, 1) <= 0) {
-        if (errno != EINTR)
-            exit(2);
-    }
-    return (cha);
+	char cha;
+	extern int errno;
+	errno = 0;
+	if(read(2, &cha, 1) <= 0) {
+		if(errno != EINTR) {
+			exit(2);
+		}
+	}
+	return (cha);
 }
 
 
@@ -277,9 +284,9 @@ vgetc()
  */
 char *
 memmove(s1, s2, n)
-	char    *s1;
-	char    *s2;
-	size_t  n;
+char    *s1;
+char    *s2;
+size_t  n;
 {
 	bcopy(s2, s1, n);
 	return(s1);

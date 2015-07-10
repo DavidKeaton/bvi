@@ -7,7 +7,7 @@
  * 1999-08-21  V 1.2.0 final
  * 2000-05-31  V 1.3.0 beta
  * 2000-10-04  V 1.3.0 final
- * 2002-01-16  V 1.3.1  
+ * 2002-01-16  V 1.3.1
  * 2003-02-20  V 1.3.2
  * 2010-03-28  V 1.3.4
  *
@@ -52,13 +52,13 @@
 #   include <ncurses.h>
 # else
 #   include <curses.h>
-# endif 
+# endif
 # if HAVE_TERM_H
 #	include <term.h>
 # else
 #  if HAVE_NCURSES_TERM_H
 #	include <ncurses/term.h>
-#  else 
+#  else
 #	include <term.h>
 #  endif
 # endif
@@ -116,11 +116,11 @@
 
 
 #ifdef DEBUG
-	extern FILE *debug_fp;
+extern FILE *debug_fp;
 #endif
 
 #ifndef HAVE_STRERROR
-	extern  char    *sys_errlist[];
+extern  char    *sys_errlist[];
 #endif
 
 extern	char	*version;
@@ -132,33 +132,33 @@ extern	int		no_tty, no_intty;
 
 
 #ifdef ANSI
-	void	initterm(void), set_tty(void), reset_tty(void);
-	void	cleartoeol(void), clearscreen(void), highlight(void);
-	void	normal(void), bmbeep(void), home(void), sig(void);
-	void	doshell(char *), emsg(char *);
-	void	do_next(int);
-	void	bmsearch(int);
-	void	pushback(int, char *);
-	int		open_file(void);
-	int		printout(int), rdline(int, char *);
-	int		nextchar(void), vgetc(void);
-	int     sbracket(int, char *, int);
-	int     bmregexec(char *);
-	int		ascii_comp(char *, char *), hex_comp(char *, char *);
-	void    putline(char *, int);
+void	initterm(void), set_tty(void), reset_tty(void);
+void	cleartoeol(void), clearscreen(void), highlight(void);
+void	normal(void), bmbeep(void), home(void), sig(void);
+void	doshell(char *), emsg(char *);
+void	do_next(int);
+void	bmsearch(int);
+void	pushback(int, char *);
+int		open_file(void);
+int		printout(int), rdline(int, char *);
+int		nextchar(void), vgetc(void);
+int     sbracket(int, char *, int);
+int     bmregexec(char *);
+int		ascii_comp(char *, char *), hex_comp(char *, char *);
+void    putline(char *, int);
 #else
-	void	initterm(), set_tty(), reset_tty();
-	void	cleartoeol(), clearscreen(), highlight();
-	void	normal(), bmbeep(), home(), sig();
-	void	doshell(), emsg();
-	void	do_next();
-	void	bmsearch();
-	void	pushback();
-	int		open_file();
-	int		printout(), rdline();
-	int		nextchar(), vgetc();
-	int     sbracket();
-	int     bmregexec();
-	int		ascii_comp(), hex_comp();
-	void    putline();
+void	initterm(), set_tty(), reset_tty();
+void	cleartoeol(), clearscreen(), highlight();
+void	normal(), bmbeep(), home(), sig();
+void	doshell(), emsg();
+void	do_next();
+void	bmsearch();
+void	pushback();
+int		open_file();
+int		printout(), rdline();
+int		nextchar(), vgetc();
+int     sbracket();
+int     bmregexec();
+int		ascii_comp(), hex_comp();
+void    putline();
 #endif
