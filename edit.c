@@ -28,8 +28,8 @@
  * See file COPYING for information on distribution conditions.
  */
 
-#include    "bvi.h"
-#include    "set.h"
+#include "bvi.h"
+#include "set.h"
 
 extern long precount;
 
@@ -119,9 +119,7 @@ off_t edit(int mode)
             setcur();
             continue;
         }
-        if(ch == KEY_BACKSPACE
-                || ch == ASCII_DEL
-                || ch == BVICTRL('H')) {
+        if(ch == KEY_BACKSPACE || ch == ASCII_DEL || ch == BVICTRL('H')) {
             if(count > 0) {
                 len--;
                 count--;
@@ -303,16 +301,23 @@ PTR do_ft(int ch, int flag)
     size_t n;
     PTR ptr;
     switch(ch) {
-        /*
-        case 1:        beep();
-                    return NULL;                     no previous command
-        case -1:    if (chp == 'f' || chp == 't') dir = BACKWARD;
-                        else dir = FORWARD;
-                    break;
-        case 0:        if (chp == 'f' || chp == 't') dir = FORWARD;
-                        else dir = BACKWARD;
-                    break;
-        */
+//        case 1:        
+//            beep();
+//            return NULL;                     
+//        case -1:    
+//            if (chp == 'f' || chp == 't') {
+//                dir = BACKWARD;
+//            } else {
+//                dir = FORWARD;
+//            }
+//            break;
+//        case 0:        
+//            if (chp == 'f' || chp == 't') {
+//                dir = FORWARD;
+//            } else { 
+//                dir = BACKWARD;
+//            }
+//            break;
         case -1:
             if(chp == 1) {
                 beep();
