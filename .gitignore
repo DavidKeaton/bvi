@@ -45,3 +45,6 @@ Makefile
 config.h
 config.log
 config.status
+
+# custom
+old/
